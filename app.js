@@ -36,7 +36,18 @@ app.get ('/cervezas', (req, res) => {
   })
 
 app.get('/cerveza-al-azar', (req, res) => {
-  res.render('cerveza-al-azar');
+
+
+  fetch("https://ih-beers-api2.herokuapp.com/beers/random")
+  .then(response => response.json())
+  .then(responseFromAPI => {
+    // your magic happens here
+
+
+    res.render('cerveza-al-azar', { beer: responseFromAPI });
+  })
+  .catch(error => console.log(error));
+  
 });
 
 app.listen(3000, () => console.log('🏃‍ on port 3000'));
