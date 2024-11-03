@@ -50,4 +50,23 @@ app.get('/cerveza-al-azar', (req, res) => {
   
 });
 
+
+
+app.get('/cervezas/:id', (req, res) => {
+  const beerId = req.params.id;
+
+  fetch(`https://ih-beers-api2.herokuapp.com/beers/${beerId}`)
+  .then(response => response.json())
+  .then(beer => {
+      res.render('detalle-cerveza', { beer });
+  })
+  .catch(error => {
+    console.error('Error al obtener detalles de la cerveza:', error);
+    res.status(500).send('Error al obtener detalles de la cerveza');
+});
+
+
+
+});
+
 app.listen(3000, () => console.log('🏃‍ on port 3000'));
